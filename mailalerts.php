@@ -817,6 +817,23 @@ class MailAlerts extends Module
 				file_exists(_PS_MAIL_DIR_.$mail_iso.'/return_slip.html'))
 				$dir_mail = _PS_MAIL_DIR_;
 
+			if (!$dir_mail)
+			{
+				$en = (int)Language::getIdByIso('en');
+				if ($mail_id_lang != $en)
+				{
+					$mail_iso = 'en';
+
+					if (file_exists(dirname(__FILE__).'/mails/'.$mail_iso.'/return_slip.txt') &&
+						file_exists(dirname(__FILE__).'/mails/'.$mail_iso.'/return_slip.html'))
+						$dir_mail = dirname(__FILE__).'/mails/';
+
+					if (file_exists(_PS_MAIL_DIR_.$mail_iso.'/return_slip.txt') &&
+						file_exists(_PS_MAIL_DIR_.$mail_iso.'/return_slip.html'))
+						$dir_mail = _PS_MAIL_DIR_;
+				}
+			}
+
 			if ($dir_mail)
 				Mail::Send(
 					$mail_id_lang,
